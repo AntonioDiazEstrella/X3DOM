@@ -1,0 +1,33 @@
+<html> 
+   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/> 
+    <title>Tablero de 3 en raya</title> 
+    <script type='text/javascript' src='https://www.x3dom.org/download/x3dom.js'> </script> 
+     <link rel='stylesheet' type='text/css' href='https://www.x3dom.org/download/x3dom.css'></link> 
+   </head> 
+   <body> 
+     <x3d width='400px' height='200px'> 
+        <Scene>
+            <Viewpoint description='vista panoramica' orientation="1 0 0 -0.35" position=" 0 20 40"></Viewpoint>
+            <Transform translation="0 0.5 15">
+                <Shape>
+                    <Appearance>
+                        <Material></Material>
+                    </Appearance>
+                    <Text string = "TRES EN RAYA">
+                        <FontStyle justify= "MIDDLE" style= "BOLD" size= "4.2"></FontStyle>
+                    </Text>
+                </Shape>
+            </Transform>
+            <Shape>
+                <Appearance>
+                    <Material diffuseColor= "1 0 0"></Material> 
+                    <ImageTexture url = "texturas/3enraya.png"></ImageTexture>
+                </Appearance>
+                <Box size="30 0.5 30"></Box>
+            </Shape>
+            <Background skyColor='0 0 0'></Background> 
+        </Scene>
+     </x3d>	  
+   </body> 
+</html> 
