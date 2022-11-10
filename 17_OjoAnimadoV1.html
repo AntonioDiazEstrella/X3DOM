@@ -1,0 +1,25 @@
+<html> 
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/> 
+        <title>Ojo animado</title> 
+        <script type="text/javascript" src="https://www.x3dom.org/download/x3dom.js"> </script> 
+        <link rel="stylesheet" type="text/css" href="https://www.x3dom.org/download/x3dom.css"></link> 
+    </head> 
+    <body> 
+        <x3d width="200px" height="200px"> 
+            <Scene>
+                <Transform DEF ='ojo'> 
+                    <Inline url = '"x3d/Ojo.x3d"'></Inline> 
+                </Transform>
+                <TimeSensor DEF= 'TimerOjo' cycleInterval = '2' loop = 'true' ></TimeSensor>
+                <OrientationInterpolator DEF='Rotacion' 
+                    key = '0 0.25 0.5 0.75 1'
+                    keyValue = '0 1 0 0  0 1 0 0.5  0 1 0 0  0 1 0 -0.1  0 1 0 0 '>
+                </OrientationInterpolator>
+                <ROUTE fromNode ='TimerOjo'  fromField = 'fraction_changed' toNode = 'Rotacion' toField = 'set_fraction'></ROUTE>
+                <ROUTE fromNode = 'Rotacion' fromField = 'value_changed'    toNode = 'ojo'      toField = 'set_rotation'></ROUTE>
+                <Background skyColor='0 0 0'></Background> 
+            </scene>
+        </x3d>	  
+    </body> 
+</html> 
