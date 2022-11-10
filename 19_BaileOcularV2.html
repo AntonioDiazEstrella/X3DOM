@@ -1,0 +1,129 @@
+﻿<html> 
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/> 
+        <title> Baile Ocular</title> 
+        <script type="text/javascript" src="https://www.x3dom.org/download/x3dom.js"></script> 
+        <link rel="stylesheet" type="text/css" href="https://www.x3dom.org/download/x3dom.css"></link> 
+    </head> 
+    <body> 
+        <x3d width="200px" height="200px">
+            <Scene>
+                <Viewpoint description ='vista panoramica' orientation ='1 0 0 -0.35' position ='0 10 20'></Viewpoint>
+
+                <!-- OJO  SALTARIN -->
+                <!-- El ojo sube y baja 1 metro en un intervalo de 1.5 segundos --> 
+                <Transform DEF='ojo saltarin' translation='-8 0 0'> 
+                    <Inline url= 'x3d/"Ojo.x3d"'></Inline> 
+                </Transform>
+
+                <TimeSensor DEF='TimerOjo' cycleInterval='1.5' loop='true'></TimeSensor>
+                
+                <PositionInterpolator DEF='Posicion' 
+                                    key = '0 0.25 0.5 0.75 1' 
+                                    keyValue =  '-8 0 0
+                                                 -8 1 0
+                                                 -8 0 0
+                                                 -8 1 0
+                                                 -8 0 0'>
+	            </PositionInterpolator>
+	            
+                <ROUTE fromNode ='TimerOjo' fromField ='fraction_changed' toNode ='Posicion'     toField ='set_fraction'></ROUTE>
+                <ROUTE fromNode ='Posicion' fromField ='value_changed'    toNode ='ojo saltarin' toField ='set_translation'></ROUTE>
+
+                <!-- OJO MIRON -->
+                <!-- El ojo gira sobre sí mismo en un intervalo de 1.5 segundos(usa el TimerOjo) -->
+                <Transform DEF ='ojo miron' translation ='-4 0 0' > 
+                    <Inline url ='"x3d/Ojo.x3d"'></Inline>  
+                </Transform>
+                <OrientationInterpolator DEF='Rotacion' 
+                                    key = '0 0.25 0.5 0.75 1' 
+                                    keyValue =  '0 1 0  0
+                                                 0 1 0  1.57
+                                                 0 1 0  3.1415
+                                                 0 1 0  4.71225
+                                                 0 1 0  0'>
+	            </OrientationInterpolator>
+                <ROUTE fromNode ='TimerOjo' fromField ='fraction_changed' toNode ='Rotacion'  toField ='set_fraction'></ROUTE>
+                <ROUTE fromNode ='Rotacion' fromField ='value_changed'    toNode ='ojo miron' toField ='set_rotation'></ROUTE>
+
+                <!-- OJO SALTON -->
+                <!-- El ojo se deforma en el eje z y luego en los 3 ejes en un intervalo de 1.5 segundos -->
+                <Transform DEF='ojo salton' translation= '0 0 0'> 
+                    <Inline url= '"x3d/Ojo.x3d"'></Inline>  
+                </Transform>
+                <PositionInterpolator DEF='Escalado' 
+                                    key = '0 0.25 0.5 0.75 1' 
+                                    keyValue =   '1 1 1
+                                                  1 1 2
+                                                  2 2 2
+                                                  1 1 2
+                                                  1 1 1'>
+	            </PositionInterpolator>
+                <ROUTE fromNode ='TimerOjo' fromField ='fraction_changed' toNode ='Escalado'   toField ='set_fraction'></ROUTE>
+                <ROUTE fromNode ='Escalado' fromField ='value_changed'    toNode ='ojo salton' toField ='set_scale'></ROUTE>
+
+                <!-- BOLA DE COLORES -->
+                <!-- La bola cambia de color (de rojo-amarillo-verde-amarillo-verde) en un intervalo de 1.5 segundos -->  
+                <Transform DEF= 'bola de colores' translation= '4 0 0'> 
+                    <Shape>
+                        <Appearance>
+                            <Material DEF = 'color bola' diffuseColor ='1 0 0'></Material>
+                        </Appearance>
+                        <Sphere radius = '1'/>
+                    </Shape>
+                </Transform>
+                <ColorInterpolator DEF='Coloreado' 
+                                    key = '0 0.25 0.5 0.75 1' 
+                                    keyValue =  '1 0 0
+                                                 1 1 0
+                                                 0 1 0
+                                                 1 1 0
+                                                 1 0 0'>
+                </ColorInterpolator>
+                <ROUTE fromNode ='TimerOjo'  fromField ='fraction_changed' toNode ='Coloreado'  toField ='set_fraction'></ROUTE>
+                <ROUTE fromNode ='Coloreado' fromField ='value_changed'    toNode ='color bola' toField ='diffuseColor'></ROUTE>
+
+                <!-- BOLA TRANSPARENTE -->
+                <!-- La bola cambia su transparencia (opaca-transparente-opaca) en un intervalo de 1.5 segundos -->
+                <Transform DEF='bola transparente' translation= '3.5 0 2'> 
+                    <Shape>
+                        <Appearance>
+                            <Material DEF = 'transparencia bola' diffuseColor='1 0 0' transparency ='.4'></Material>
+                        </Appearance>
+                        <Sphere radius = '0.5'></Sphere>
+                    </Shape>
+                </Transform>
+                <ScalarInterpolator DEF='Transparencia' 
+                                    key= '0 0.25 0.5 0.75 1' 
+                                    keyValue =  '1
+                                                 0.5
+                                                 0
+                                                 0.5
+                                                 1'>
+	            </ScalarInterpolator>
+                <ROUTE fromNode ='TimerOjo'      fromField ='fraction_changed' toNode ='Transparencia'      toField ='set_fraction'></ROUTE>
+                <ROUTE fromNode ='Transparencia' fromField ='value_changed'    toNode ='transparencia bola' toField ='transparency'></ROUTE>
+
+                <!-- OJO SATELITE -->
+                <!-- El ojo gira alrededor del eje de coordenadas en un intervalo de 1.5 segundos -->
+                <Transform DEF = 'satelite'>
+                    <Transform DEF = 'ojo loco' translation='9 0 0' > 
+                        <Inline url = '"x3d/Ojo.x3d"'></Inline>  
+                    </Transform>
+                </Transform>
+                <OrientationInterpolator DEF='Rotacion3' 
+                                    key= '0 0.25 0.5 0.75 1' 
+                                    keyValue =   '0 1 0  0
+                                                  0 1 0  1.57
+                                                  0 1 0  3.1415
+                                                  0 1 0  4.71225
+                                                  0 1 0 0'>
+	            </OrientationInterpolator>
+                <ROUTE fromNode ='TimerOjo'  fromField ='fraction_changed' toNode ='Rotacion3' toField ='set_fraction'></ROUTE>
+                <ROUTE fromNode ='Rotacion3' fromField ='value_changed'    toNode ='satelite'  toField ='set_rotation'></ROUTE>
+   
+                <Background skyColor='0 0 0'></Background> 
+            </Scene>
+        </x3d>
+    </body> 
+</html> 
