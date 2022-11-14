@@ -1,0 +1,35 @@
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>My first X3DOM page</title>
+    <script type='text/javascript' src='https://www.x3dom.org/download/x3dom.js'> </script>
+    <link rel='stylesheet' type='text/css' href='https://www.x3dom.org/download/x3dom.css'/>
+
+</head>
+<body>
+
+<x3d width='200px' height='200px'>
+    <scene>
+	<Viewpoint position='0 10 15' orientation='1 0 0 -0.46917'></Viewpoint>
+	<PointLight DEF= 'PUN' on='false' intensity = '1.0' color='0 1 0' location='0 10 0' shadowIntensity='0.5'></PointLight>
+
+	<Transform translation='0 4 0'>
+		<Shape>
+			<Appearance><Material diffuseColor='1 0 1'/></Appearance>
+			<Sphere radius ='0.3'/>
+		</Shape>
+		<TouchSensor DEF= 'TOUCH'></TouchSensor>
+	</Transform>
+		
+	<Shape>
+		<Appearance><Material diffuseColor='0.8 0.8 0.8'/></Appearance>
+		<Box size ='4 0.5 4'/>
+	</Shape> 
+
+<ROUTE fromNode = 'TOUCH' fromField = 'isActive' toNode= 'PUN' toField = 'on'></ROUTE>
+	
+		<background  skyColor="1 1 1"></background>
+    </scene>
+</x3d>
+</body>
+</html>
