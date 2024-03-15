@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<X3D profile='Immersive'> 
+<Scene>
+<Background skyColor='0 0 0'></Background>
+
+     <Viewpoint description='vista panoramica' position='0 0.5 3'></Viewpoint>
+    <Transform translation='-2 0  2'> <Shape><Text string='"+2"'></Text></Shape></Transform> 
+    <Transform translation='-1 0  1'> <Shape><Text string='"+1"'></Text></Shape></Transform>      
+    <Transform translation=' 0 0  0'> <Shape><Text string='"0"'></Text></Shape></Transform>
+    <Transform translation=' 1 0 -1'> <Shape><Text string='"-1"'></Text></Shape></Transform>
+    <Transform translation=' 2 0 -2'> <Shape><Text string='"-2"'></Text></Shape></Transform>
+  </Scene>
+</X3D>
